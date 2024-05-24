@@ -1,0 +1,29 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.navbar, .footer, .product-seacrh {
+	background: #9148b7;
+}
+
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+.register-text {
+	color: #9148b7;
+	font-style: oblique;
+	font-weight: bold;
+}
+
+.card-sh {
+	box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.3);
+	border-radius: 30px;
+}
+
+.cat-div {
+	box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+}
+
