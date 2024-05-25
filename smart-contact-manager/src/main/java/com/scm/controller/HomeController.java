@@ -29,6 +29,12 @@ public class HomeController {
 
     // home handler
     @GetMapping("/")
+    public String indexHandler() {
+        return "redirect:/home";
+    }
+
+    // home handler
+    @GetMapping("/home")
     public String homeHandler() {
         return "index";
     }
