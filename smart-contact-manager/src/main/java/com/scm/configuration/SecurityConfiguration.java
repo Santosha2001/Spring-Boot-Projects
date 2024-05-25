@@ -23,6 +23,9 @@ public class SecurityConfiguration {
     @Autowired
     private SecurityCustomUserDetailsService customUserDetailsService;
 
+    @Autowired
+    private OAuthAuthenticationSuccessHandler authAuthenticationSuccessHandler;
+
     // create user and login using in-memory service
     /*
      * @Bean
@@ -81,10 +84,17 @@ public class SecurityConfiguration {
 
         });
 
+        // form logout
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
         httpSecurity.logout(logoutForm -> {
             logoutForm.logoutUrl("/logout");
             logoutForm.logoutSuccessUrl("/login?logout=true");
+        });
+
+        // oauth2 configurations
+        httpSecurity.oauth2Login(oauth2 -> {
+            oauth2.loginPage("/login");
+            oauth2.successHandler(authAuthenticationSuccessHandler);
         });
 
         return httpSecurity.build();

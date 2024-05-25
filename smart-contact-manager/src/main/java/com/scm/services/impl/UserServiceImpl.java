@@ -2,6 +2,7 @@ package com.scm.services.impl;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 // import org.slf4j.Logger;
 // import org.slf4j.LoggerFactory;
@@ -28,6 +29,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User saveUser(User user) {
+        // user id : have to generate
+        String userId = UUID.randomUUID().toString();
+        user.setId(userId);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoleList(List.of(AppConstants.ROLE_USER));
 
@@ -35,7 +39,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> getUserById(Integer id) {
+    public Optional<User> getUserById(String id) {
 
         return userRepository.findById(id);
     }
@@ -66,7 +70,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(Integer id) {
+    public void deleteUser(String id) {
         User deleteUser = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found."));
 
@@ -74,7 +78,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean isUserExist(Integer id) {
+    public boolean isUserExist(String id) {
 
         User isExist = userRepository.findById(id).orElse(null);
 

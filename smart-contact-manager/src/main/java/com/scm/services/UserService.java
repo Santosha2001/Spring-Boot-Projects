@@ -9,13 +9,13 @@ public interface UserService {
 
     User saveUser(User user);
 
-    Optional<User> getUserById(Integer id);
+    Optional<User> getUserById(String id);
 
     Optional<User> updateUser(User user);
 
-    void deleteUser(Integer id);
+    void deleteUser(String id);
 
-    boolean isUserExist(Integer id);
+    boolean isUserExist(String id);
 
     boolean isUserExistByEmail(String email);
 
