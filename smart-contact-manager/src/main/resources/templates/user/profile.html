@@ -7,5 +7,13 @@
 </head>
 <body>
     <h1>this user profile page</h1>
+    <h1 data-th-text="${loggedInUser.name}"></h1>
+    <h1 data-th-text="${loggedInUser.email}"></h1>
+
+    <!-- if user is loggeed in show message -->
+    <div th:if="${loggedInUser}">
+        <h3>User is logged in</h3>
+        <h3>this is user logged in section</h3>
+    </div>
 </body>
 </html>
