@@ -3,11 +3,21 @@ package com.scm.forms;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
-@RequiredArgsConstructor
+// @Data
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+// @RequiredArgsConstructor
 public class UserForm {
 
     @NotBlank(message = "*username is required.")
@@ -28,4 +38,6 @@ public class UserForm {
 
     @NotBlank(message = "*about is required.")
     private String about;
+
+    
 }

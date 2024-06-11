@@ -42,15 +42,15 @@ public class ContactController {
     }
 
     // add contact
-    @PostMapping("/add")
+    @PostMapping("/add_process")
     public String addContactHandler(@ModelAttribute ContactForm contactForm, Authentication authentication) {
 
-        // Authenticate User
+    //     // Authenticate User
         String username = Helper.getEmailOfLoggedInUser(authentication);
 
         User user = userService.getUserByEmail(username);
 
-        // convert ContactForm -> Contact
+    //     // convert ContactForm -> Contact
         Contact contact = new Contact();
         contact.setName(contactForm.getName());
         contact.setEmail(contactForm.getEmail());
@@ -61,7 +61,7 @@ public class ContactController {
         contact.setLinkedInLink(contactForm.getLinkedInLink());
         contact.setFavourite(contactForm.isFavourite());
 
-        // set user to contact
+    //     // set user to contact
         contact.setUser(user);
 
         contactService.saveContact(contact);
