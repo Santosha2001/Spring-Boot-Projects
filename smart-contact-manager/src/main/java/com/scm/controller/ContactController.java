@@ -1,5 +1,7 @@
 package com.scm.controller;
 
+import java.util.UUID;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,7 @@ import jakarta.validation.Valid;
 @RequestMapping("/user/contacts")
 public class ContactController {
 
-    private Logger logger =LoggerFactory.getLogger(getClass());
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private ContactService contactService;
@@ -57,11 +59,13 @@ public class ContactController {
 
     // add contact
     @PostMapping("/add_process")
-    public String addContactHandler(@Valid @ModelAttribute ContactForm contactForm,BindingResult bindingResult, Authentication authentication,HttpSession session) {
+    public String addContactHandler(@Valid @ModelAttribute ContactForm contactForm, BindingResult bindingResult,
+            Authentication authentication, HttpSession session) {
 
         if (bindingResult.hasErrors()) {
-            bindingResult.getAllErrors().forEach(errors->logger.info(errors.toString()));
-            session.setAttribute("message", Message.builder().content("Please correct following errors.").type(MessageType.RED).build());
+            bindingResult.getAllErrors().forEach(errors -> logger.info(errors.toString()));
+            session.setAttribute("message",
+                    Message.builder().content("Please correct following errors.").type(MessageType.RED).build());
             return "user/add_contacts";
         }
         // Authenticate User
@@ -70,9 +74,11 @@ public class ContactController {
         User user = userService.getUserByEmail(username);
 
         // image process
-        // logger.info("file information: {}",contactForm.getContactImage().getOriginalFilename());
+        logger.info("file information: {}", contactForm.getContactImage().getOriginalFilename());
 
-        String contactImageUrl=imageService.uploadImage(contactForm.getContactImage());
+        String fileName = UUID.randomUUID().toString();
+
+        String contactImageUrl = imageService.uploadImage(contactForm.getContactImage(), fileName);
 
         // convert ContactForm -> Contact
         Contact contact = new Contact();
@@ -85,11 +91,12 @@ public class ContactController {
         contact.setLinkedInLink(contactForm.getLinkedInLink());
         contact.setFavourite(contactForm.isFavourite());
         contact.setImage(contactImageUrl);
+        contact.setCloudinaryImagePublicId(fileName);
 
         // set user to contact
         contact.setUser(user);
 
-        // contactService.saveContact(contact);
+        contactService.saveContact(contact);
 
         System.out.println("Contact form -> " + contactForm);
         session.setAttribute("message", Message.builder().content("Contact saved.").type(MessageType.GREEN).build());
