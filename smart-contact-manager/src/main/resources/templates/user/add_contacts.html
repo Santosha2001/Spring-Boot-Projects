@@ -18,27 +18,31 @@
                 <div class="col-span-3 "></div>
                 <div class="col-span-12 md:col-span-6 ">
                     <div
-                        class="card block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                        class="card block p-6 bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700 ">
                         <h1 class="text-2xl font-semibold">Add New Contact</h1>
                         <p class="text-gray-500">This contact will stored on cloud, you can directly email.</p>
 
-                        <form data-th-action="@{/user/contacts/add_process}" method="post" data-th-object="${contactForm}"
-                            class="mt-5">
+                        <div data-th-replace="~{message::messagebox}"></div>
+
+                        <form data-th-action="@{/user/contacts/add_process}" method="post"
+                            data-th-object="${contactForm}" enctype="multipart/form-data" class="mt-5">
 
                             <!-- name field -->
                             <div class="mb-3">
                                 <label for="input-group-1"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contact
                                     Name</label>
-                                <div class="relative mb-6">
+                                <div class="relative mb-1">
                                     <div
                                         class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
                                         <i class="fa-solid fa-user w-5 h-4"></i>
                                     </div>
-                                    <input type="text"  data-th-field="*{name}"
+                                    <input type="text" data-th-field="*{name}"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         placeholder="name">
                                 </div>
+                                <span class="text-red-500 text-sm font-mono" data-th-if="${#fields.hasErrors('name')}"
+                                    data-th-errors="*{name}"></span>
                             </div>
 
                             <!-- email field -->
@@ -46,7 +50,7 @@
                                 <label for="input-group-1"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contact
                                     Email</label>
-                                <div class="relative mb-6">
+                                <div class="relative mb-1">
                                     <div
                                         class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
                                         <i class="fa-solid fa-envelope w-5 h-4"></i>
@@ -55,6 +59,8 @@
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         placeholder="example@gmail.com">
                                 </div>
+                                <span class="text-red-500 text-sm font-mono"
+                                    data-th-field="${#fields.hasErrors('email')}" data-th-errors="*{email}"></span>
                             </div>
 
                             <!-- mobile number field -->
@@ -62,7 +68,7 @@
                                 <label for="input-group-1"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contact
                                     Number</label>
-                                <div class="relative mb-6">
+                                <div class="relative mb-1">
                                     <div
                                         class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
                                         <i class="fa-solid w-5 h-4 fa-phone"></i>
@@ -71,6 +77,8 @@
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         placeholder="xxxxxxxxxx">
                                 </div>
+                                <span class="text-red-500 text-sm font-mono"
+                                    data-th-field="${#fields.hasErrors('mobile')}" data-th-errors="*{mobile}"></span>
                             </div>
 
                             <!-- address field -->
@@ -81,6 +89,9 @@
                                 <textarea data-th-field="*{address}" rows="3"
                                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="Contact Address..."></textarea>
+
+                                <span class="text-red-500 text-sm font-mono"
+                                    data-th-field="${#fields.hasErrors('address')}" data-th-errors="*{address}"></span>
                             </div>
 
                             <!-- description field -->
@@ -113,7 +124,7 @@
                                     <div class="relative mb-6">
                                         <div
                                             class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-                                            <i class="fa-brands fa-linkedin w-5 h-4"></i>
+                                            <i class="fa-brands fa-linkedin-in w-5 h-4"></i>
                                         </div>
                                         <input type="text" data-th-field="*{linkedInLink}"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -128,7 +139,7 @@
                                     for="file_input">Upload contact image</label>
                                 <input
                                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                    id="file_input" type="file">
+                                    data-th-field="*{contactImage}" type="file">
                             </div>
 
                             <!-- faviourate contact field -->
