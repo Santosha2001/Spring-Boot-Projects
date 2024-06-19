@@ -1,5 +1,6 @@
 package com.scm.controller;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -103,4 +104,17 @@ public class ContactController {
         return new String("redirect:/user/contacts/add");
     }
 
+    // view contact
+    @GetMapping("/view-contact")
+    public String viewContact(Authentication authentication, Model model) {
+
+        // load all the user contacts
+        String emailOfLoggedInUser = Helper.getEmailOfLoggedInUser(authentication);
+        User userByEmail = userService.getUserByEmail(emailOfLoggedInUser);
+
+        List<Contact> contacts = contactService.getByUser(userByEmail);
+        model.addAttribute("contacts", contacts);
+        
+        return "user/contacts";
+    }
 }
