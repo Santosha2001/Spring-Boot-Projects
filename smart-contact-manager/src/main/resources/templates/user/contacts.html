@@ -102,17 +102,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr
-                                data-th-object="${c}"
-                                data-th-each="c : ${contacts}"
+                                <tr data-th-object="${c}" data-th-each="c : ${pageContact.getContent()}"
                                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                    
+
                                     <th scope="row"
                                         class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
                                         <img class="w-10 h-10 rounded-full"
-                                        onerror="this.src='https://static-00.iconduck.com/assets.00/profile-default-icon-2048x2045-u3j7s5nj.png'"
-                                        data-th-src="@{*{image}}"
-                                             alt="Jese image">
+                                            onerror="this.src='https://static-00.iconduck.com/assets.00/profile-default-icon-2048x2045-u3j7s5nj.png'"
+                                            data-th-src="@{*{image}}" alt="Jese image">
                                         <div class="ps-3">
                                             <div class="text-base font-semibold" data-th-text="*{name}"></div>
                                             <div class="font-normal text-gray-500" data-th-text="*{email}"></div>
@@ -124,9 +121,12 @@
                                     </td>
                                     <td class="px-6 py-4">
                                         <div class="flex items-center">
-                                            <div data-th-if="*{favourite}" class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> 
-                                            <a class="p-1" data-th-href="@{*{websiteLink}}" target="_blank"><i class="fa-solid fa-link w-4 h-5"></i></a>
-                                            <a class="p-1" data-th-href="@{*{linkedInLink}}" target="_blank"><i class="fa-brands fa-linkedin-in w-4 h-5"></i></a>
+                                            <div data-th-if="*{favourite}"
+                                                class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div>
+                                            <a class="p-1" data-th-href="@{*{websiteLink}}" target="_blank"><i
+                                                    class="fa-solid fa-link w-4 h-5"></i></a>
+                                            <a class="p-1" data-th-href="@{*{linkedInLink}}" target="_blank"><i
+                                                    class="fa-brands fa-linkedin-in w-4 h-5"></i></a>
                                         </div>
                                     </td>
                                     <td class="px-6 py-4">
@@ -134,13 +134,38 @@
                                             <a href=""><i class="fa-solid fa-trash w-5 h-5"></i></a>
                                             <a href=""><i class="fa-solid fa-pen-to-square w-5 h-5"></i></a>
                                             <a href=""><i class="fa-solid fa-eye w-5 h-5"></i></a>
-                                            
+
                                         </div>
                                     </td>
                                 </tr>
 
                             </tbody>
                         </table>
+
+                        <!-- pagination component -->
+                        <div class="pagination-container bg-white dark:bg-gray-800 p-3 text-center">
+                            <nav aria-label="Page navigation example">
+                                <ul class="inline-flex -space-x-px text-base h-10">
+
+                                    <li data-th-unless="${pageContact.first}">
+                                        <a data-th-href="@{'/user/contacts?'+${pageSize}+'&page='+ ${pageContact.number-1}}"
+                                            href="#"
+                                            class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
+                                    </li>
+                                    <li data-th-each="index : ${#numbers.sequence(0, pageContact.totalPages - 1)}">
+
+                                        <a data-th-href="@{'/user/contacts?size='+${pageSize}+'&page='+${index}}"
+                                            data-th-classappend="${index==pageContact.number? 'bg-blue-50  dark:bg-gray-600' : 'bg-white dark:bg-gray-800'}"
+                                            class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                            <span data-th-text="${index+1}"></span> </a>
+                                    </li>
+                                    <li data-th-unless="${pageContact.last}">
+                                        <a data-th-href="@{'/user/contacts?'+${pageSize}+'&page='+ ${pageContact.number+1}}"
+                                            class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
 
                 </div>
