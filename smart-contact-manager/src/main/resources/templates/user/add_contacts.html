@@ -14,7 +14,7 @@
         </div>
 
         <div class="sm:pl-60 sm:pt-20 " style="height: 1000px;">
-            <div class="grid grid-cols-12">
+            <div class="grid grid-cols-12 ">
                 <div class="col-span-3 "></div>
                 <div class="col-span-12 md:col-span-6 ">
                     <div
@@ -25,10 +25,10 @@
                         <div data-th-replace="~{message::messagebox}"></div>
 
                         <form data-th-action="@{/user/contacts/add_process}" method="post"
-                            data-th-object="${contactForm}" enctype="multipart/form-data" class="mt-5">
+                            data-th-object="${contactForm}" enctype="multipart/form-data" class="mt-5 z-10">
 
                             <!-- name field -->
-                            <div class="mb-3">
+                            <div class="mb-3 z-10">
                                 <label for="input-group-1"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contact
                                     Name</label>
