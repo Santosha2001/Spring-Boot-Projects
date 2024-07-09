@@ -51,3 +51,45 @@ async function loadContactData(id) {
 
 }
 
+// delete contact
+async function deleteContact(id) {
+
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      fetch(`http://localhost:8082/user/contacts/delete/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          window.location.reload();
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+      Swal.fire(
+        'Deleted!',
+        'Your contact has been deleted.',
+        'success'
+      )
+      window.location.reload();
+    }
+    else {
+      Swal.fire("Cancelled", "Your contact is safe :)", "error");
+    }
+  });
+}
+
+
+

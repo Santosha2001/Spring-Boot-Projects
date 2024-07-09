@@ -22,6 +22,8 @@
 
                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
 
+                        <div data-th-replace="~{message :: messagebox}"></div>
+
                         <form data-th-action="@{'/user/contacts/search'}" data-th-object="${contactSearchForm}">
                             <div
                                 class="flex space-x-3 p-5 items-center justify-start flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white dark:bg-gray-900">
@@ -111,9 +113,12 @@
                                     </td>
                                     <td class="px-6 py-4">
                                         <div>
-                                            <a data-th-href="@{'/user/contacts/delete/'+*{id}}"><i class="fa-solid fa-trash w-5 h-5"></i></a>
+                                            <!-- <a data-th-href="@{'/user/contacts/delete/'+*{id}}"><i class="fa-solid fa-trash w-5 h-5"></i></a> -->
+                                            <button th:onclick="deleteContact([[${c.id}]])"><i
+                                                    class="fa-solid fa-trash w-5 h-5"></i></button>
                                             <a href=""><i class="fa-solid fa-pen-to-square w-5 h-5"></i></a>
-                                            <a data-th-href="@{'/api/view_contact'}"><i class="fa-solid fa-eye w-5 h-5"></i></a>
+                                            <a data-th-href="@{'/api/view_contact'}"><i
+                                                    class="fa-solid fa-eye w-5 h-5"></i></a>
                                             <!-- <button th:onclick="loadContactdata()">
                                                 <i class="fa-solid fa-eye w-5 h-5"></i>
                                               </button> -->
@@ -161,7 +166,7 @@
 
             </div>
 
-            <script data-th-src="@{'/js/contacts.js'}"></script>
+            <script data-th-src="@{'/js/contact.js'}"></script>
             <script data-th-src="@{'/js/script.js'}"></script>
             <script>
                 console.log("profile page");
