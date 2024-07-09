@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -61,7 +62,7 @@ public class ContactController {
         return "user/add_contacts";
     }
 
-    // add contact
+    // contact add handler
     @PostMapping("/add_process")
     public String addContactHandler(@Valid @ModelAttribute ContactForm contactForm, BindingResult bindingResult,
             Authentication authentication, HttpSession session) {
@@ -129,7 +130,6 @@ public class ContactController {
     }
 
     // search handler
-
     @RequestMapping("/search")
     public String searchHandler(
 
@@ -166,5 +166,16 @@ public class ContactController {
         model.addAttribute("pageSize", AppConstants.PAGE_SIZE);
 
         return "user/search";
+    }
+
+    // delete handler
+    @RequestMapping("/delete/{id}")
+    public String deleteContact(@PathVariable String id) {
+
+        contactService.deleteContact(id);
+        logger.info("contactId {} deleted", id);
+
+        return "redirect:/user/contacts";
+
     }
 }

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{base :: parent(~{::#content},~{::title},~{::script})}">
+
+<head>
+    <title>View Contact</title>
+</head>
+
+<body>
+    <div id="content">
+
+        <!-- user loggeg in sidebar -->
+        <div th:if="${loggedInUser}">
+            <div data-th-replace="~{user/user_sidebar :: user-sidebar}"></div>
+        </div>
+
+        <div class="sm:pl-60 sm:pt-20 " style="height: 1000px;">
+            <div class="flex justify-center flex-col items-center">
+                <h1 class="text-3xl">Welcome to View contact page</h1>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur,
+                    ratione!
+                </p>
+            </div>
+        </div>
+    </div>
+    <script>
+        console.log("profile page");
+    </script>
+</body>
+
+</html>
