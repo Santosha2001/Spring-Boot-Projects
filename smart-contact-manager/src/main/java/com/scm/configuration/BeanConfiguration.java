@@ -26,7 +26,9 @@ public class BeanConfiguration {
         System.out.println("BeanConfiguration");
     }
 
-    // cloudinary vconfiguration for image upload
+    /*
+     * cloudinary configuration for image upload
+     */
     @Bean
     public Cloudinary cloudinary() {
         return new Cloudinary(

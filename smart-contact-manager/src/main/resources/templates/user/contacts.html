@@ -114,9 +114,17 @@
                                     <td class="px-6 py-4">
                                         <div>
                                             <!-- <a data-th-href="@{'/user/contacts/delete/'+*{id}}"><i class="fa-solid fa-trash w-5 h-5"></i></a> -->
+
+                                            <!-- delete contact -->
                                             <button th:onclick="deleteContact([[${c.id}]])"><i
                                                     class="fa-solid fa-trash w-5 h-5"></i></button>
-                                            <a href=""><i class="fa-solid fa-pen-to-square w-5 h-5"></i></a>
+
+                                            <!-- edit contact -->
+                                            <a data-th-href="@{'/user/contacts/edit/'+*{id}}"><i
+                                                    class="fa-solid fa-pen-to-square w-5 h-5"></i></a>
+                                            <!-- <a href=""><i class="fa-solid fa-pen-to-square w-5 h-5"></i></a> -->
+
+                                            <!-- view contact -->
                                             <a data-th-href="@{'/api/view_contact'}"><i
                                                     class="fa-solid fa-eye w-5 h-5"></i></a>
                                             <!-- <button th:onclick="loadContactdata()">

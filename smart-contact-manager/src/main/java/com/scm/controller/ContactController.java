@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -169,7 +170,7 @@ public class ContactController {
     }
 
     // delete handler
-    @RequestMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public String deleteContact(@PathVariable String id, HttpSession session) {
 
         contactService.deleteContact(id);
@@ -180,4 +181,77 @@ public class ContactController {
         return "redirect:/user/contacts";
 
     }
+
+    // load update contact
+    @GetMapping("/edit/{id}")
+    public String editContactView(@PathVariable String id, Model model, Authentication authentication) {
+
+        Contact contact = contactService.getContactById(id);
+
+        ContactForm contactForm = new ContactForm();
+
+        contactForm.setName(contact.getName());
+        contactForm.setEmail(contact.getEmail());
+        contactForm.setMobile(contact.getMobile());
+        contactForm.setAddress(contact.getAddress());
+        contactForm.setDescription(contact.getDescription());
+        contactForm.setWebsiteLink(contact.getWebsiteLink());
+        contactForm.setLinkedInLink(contact.getLinkedInLink());
+        contactForm.setFavourite(contact.isFavourite());
+        contactForm.setImage(contact.getImage());
+        // contactForm.setContactImage(null); // image not to be updated
+
+        model.addAttribute("contactForm", contactForm);
+        model.addAttribute("contactId", id);
+
+        return "user/update_contact";
+    }
+
+    // update contact
+    @PostMapping("update/{id}")
+    public String updateContact(@PathVariable String id, @Valid @ModelAttribute ContactForm contactForm,
+            BindingResult bindingResult, Model model) {
+
+        // update the contact
+        if (bindingResult.hasErrors()) {
+            return "user/update_contact";
+        }
+
+        var contact = contactService.getContactById(id);
+        // Contact contact = new Contact();
+
+        contact.setId(id);
+        contact.setName(contactForm.getName());
+        contact.setEmail(contactForm.getEmail());
+        contact.setMobile(contactForm.getMobile());
+        contact.setAddress(contactForm.getAddress());
+        contact.setDescription(contactForm.getDescription());
+        contact.setWebsiteLink(contactForm.getWebsiteLink());
+        contact.setLinkedInLink(contactForm.getLinkedInLink());
+        contact.setFavourite(contactForm.isFavourite());
+        // contact.setImage(contactForm.getImage());
+
+        // process image:
+        if (contactForm.getContactImage() != null && !contactForm.getContactImage().isEmpty()) {
+            logger.info("file is not empty");
+
+            String fileName = UUID.randomUUID().toString();
+            String imageUrl = imageService.uploadImage(contactForm.getContactImage(), fileName);
+            contact.setCloudinaryImagePublicId(fileName);
+            contact.setImage(imageUrl);
+            contactForm.setImage(imageUrl);
+
+        } else {
+            logger.info("file is empty");
+        }
+
+        var updatedContact = contactService.updateContact(contact);
+
+        logger.info("updated contact {}", updatedContact);
+
+        model.addAttribute("message", Message.builder().content("Contact updated.").type(MessageType.GREEN).build());
+
+        return "redirect:/user/contacts/edit/" + id;
+    }
+
 }

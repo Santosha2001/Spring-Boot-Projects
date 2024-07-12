@@ -33,4 +33,6 @@ public class ContactForm {
     private String websiteLink;
     private String linkedInLink;
 
+    private String image;
+
 }
