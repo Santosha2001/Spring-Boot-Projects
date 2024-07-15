@@ -182,7 +182,7 @@ public class ContactController {
 
     }
 
-    // load update contact
+    /* load update contact */
     @GetMapping("/edit/{id}")
     public String editContactView(@PathVariable String id, Model model, Authentication authentication) {
 
@@ -207,7 +207,7 @@ public class ContactController {
         return "user/update_contact";
     }
 
-    // update contact
+    /* update contact */
     @PostMapping("update/{id}")
     public String updateContact(@PathVariable String id, @Valid @ModelAttribute ContactForm contactForm,
             BindingResult bindingResult, Model model) {
@@ -253,5 +253,20 @@ public class ContactController {
 
         return "redirect:/user/contacts/edit/" + id;
     }
+
+    // view handler
+    /*
+     * @GetMapping("/view/{id}")
+     * public String viewContact(@PathVariable String id, HttpSession session, Model
+     * model) {
+     * 
+     * Contact contactById = contactService.getContactById(id);
+     * logger.info("contactId {} viewed", id);
+     * 
+     * model.addAttribute("user", contactById);
+     * return "redirect:/user/contacts";
+     * 
+     * }
+     */
 
 }

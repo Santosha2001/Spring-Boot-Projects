@@ -1,5 +1,6 @@
 console.log("Contacts.js");
-// const baseURL = "http://localhost:8081";
+
+/**
 const viewContactModal = document.getElementById("default-modal");
 
 // options with default values
@@ -50,10 +51,10 @@ async function loadContactData(id) {
   }
 
 }
+*/
 
 // delete contact
 async function deleteContact(id) {
-
   Swal.fire({
     title: "Are you sure?",
     text: "You won't be able to revert this!",
@@ -61,35 +62,72 @@ async function deleteContact(id) {
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!"
+    confirmButtonText: "Yes, delete it!",
   }).then((result) => {
     if (result.isConfirmed) {
       fetch(`http://localhost:8082/user/contacts/delete/${id}`, {
-        method: 'DELETE',
+        method: "DELETE",
         headers: {
-          'Content-Type': 'application/json'
-        }
+          "Content-Type": "application/json",
+        },
       })
-        .then(response => response.json())
-        .then(data => {
+        .then((response) => response.json())
+        .then((data) => {
           console.log(data);
           window.location.reload();
         })
-        .catch(error => {
-          console.error('Error:', error);
+        .catch((error) => {
+          console.error("Error:", error);
         });
-      Swal.fire(
-        'Deleted!',
-        'Your contact has been deleted.',
-        'success'
-      )
+      Swal.fire("Deleted!", "Your contact has been deleted.", "success");
       window.location.reload();
-    }
-    else {
+    } else {
       Swal.fire("Cancelled", "Your contact is safe :)", "error");
     }
   });
 }
 
+// view contact details.
+/**
+ async function viewProfile(userId) {
+            try {
+                const response = await fetch(`/user/${userId}`);
+                const user = await response.json();
 
+                if (!user) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'User not found',
+                        text: `No user found with ID ${userId}`,
+                    });
+                    return;
+                }
 
+                Swal.fire({
+                    title: 'User Profile',
+                    html: `
+                        <div style="text-align: left;">
+                            <img src="${user.img}" alt="Profile Picture" style="border-radius: 50%; margin-bottom: 10px;">
+                            <p><strong>Name:</strong> ${user.name}</p>
+                            <p><strong>Email:</strong> ${user.email}</p>
+                            <p><strong>Location:</strong> ${user.location}</p>
+                            <p><strong>Bio:</strong> ${user.bio}</p>
+                        </div>
+                    `,
+                    showCloseButton: true,
+                    focusConfirm: false,
+                    confirmButtonText: 'Close',
+                    customClass: {
+                        popup: 'swal-wide'
+                    }
+                });
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'An error occurred while fetching user data. Please try again later.',
+                });
+            }
+        }
+ */

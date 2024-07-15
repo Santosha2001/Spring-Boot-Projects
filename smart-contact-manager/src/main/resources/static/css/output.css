@@ -819,6 +819,10 @@ video {
   height: 100vh;
 }
 
+.h-32 {
+  height: 8rem;
+}
+
 .max-h-44 {
   max-height: 11rem;
 }
@@ -873,6 +877,10 @@ video {
 
 .w-full {
   width: 100%;
+}
+
+.w-32 {
+  width: 8rem;
 }
 
 .max-w-2xl {
@@ -1391,6 +1399,16 @@ video {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
+.text-gray-600 {
+  --tw-text-opacity: 1;
+  color: rgb(75 85 99 / var(--tw-text-opacity));
+}
+
+.text-yellow-400 {
+  --tw-text-opacity: 1;
+  color: rgb(250 204 21 / var(--tw-text-opacity));
+}
+
 .underline {
   text-decoration-line: underline;
 }
@@ -1423,6 +1441,12 @@ video {
 
 .transition-transform {
   transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.transition-all {
+  transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
@@ -1894,10 +1918,6 @@ video {
 .dark\:focus\:ring-red-800:focus:where(.dark, .dark *) {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(153 27 27 / var(--tw-ring-opacity));
-}
-
-.dark\:focus\:ring-offset-gray-800:focus:where(.dark, .dark *) {
-  --tw-ring-offset-color: #1f2937;
 }
 
 .group:hover .dark\:group-hover\:text-white:where(.dark, .dark *) {
